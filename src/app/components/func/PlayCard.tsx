@@ -3,23 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { getDefinitions, getTerms } from '../../utility/firestoreFunctions';
 import { GrCaretNext } from 'react-icons/gr';
 import { BiShow } from 'react-icons/bi';
-import { Suspense } from 'react';
-import { CircularProgress } from '@mui/material';
 import Loading from './Loading';
 import { useGameInfoContext } from '../providers/GameInfoProvider';
 import GameEnd from './GameEnd';
 const PlayCard = () => {
-  const { cq, stats, updateCQ, updateStats, gameEnd, updateEndState } = useGameInfoContext();
+  const { cq, stats, updateCQ, updateStats, gameEnd, updateEndState } = useGameInfoContext()!;
   const [Clientterms, SetTerms] = useState(['term']);
-  const [Clientdefinitions, SetDefinitions] = useState([]);
-  var currentWord = Clientterms[cq];
-  var currentDef = Clientdefinitions[cq];
+  const [Clientdefinitions, SetDefinitions] = useState(['']);
+  const currentWord: string = Clientterms[cq];
+  const currentDef: string[] = Clientdefinitions[cq] as unknown as string[];
   const [cardHideClass, SetCardHideClass] = useState('opacity-0 transition-discrete duration-700`');
   useEffect(() => {
     const fetchFromFirestore = async () => {
-      const terms = await getTerms();
-      const def = await getDefinitions();
-      console.log(terms, def);
+      const terms: string[] = (await getTerms()) as string[];
+      const def: string[] = (await getDefinitions()) as string[];
       if (terms.length != 0 && terms != undefined) {
         SetTerms(terms);
         SetDefinitions(def);
@@ -42,7 +39,7 @@ const PlayCard = () => {
     updateStats(stats + 1);
     next();
   };
-  console.log(gameEnd);
+  console.log(currentDef);
   return (
     <>
       {gameEnd ? (
@@ -79,10 +76,10 @@ const PlayCard = () => {
             <h1 className="text-2xl">Definitions: </h1>
             <div className=" md:text-md text-sm pb-20 ">
               <div className="bg-slate-800 rounded-2xl p-4 flex flex-col gap-4">
-                {currentDef == undefined && currentDef != [] ? (
+                {currentDef == undefined ? (
                   <Loading />
                 ) : (
-                  currentDef.map((val, i) => {
+                  currentDef.map((val: string, i: number) => {
                     if (i <= 4) {
                       return (
                         <p className={cardHideClass} key={i}>

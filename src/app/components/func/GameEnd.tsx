@@ -2,7 +2,7 @@ import React from 'react';
 import { useGameInfoContext } from '../providers/GameInfoProvider';
 
 const GameEnd = () => {
-  const { cq, stats, updateCQ, updateStats, gameEnd, updateEndState, Reset } = useGameInfoContext();
+  const { cq, stats, Reset } = useGameInfoContext();
   return (
     <div className="md:w-3/4 rounded-t-2xl translate-y-1/2 w-full mx-auto border mt-10">
       <div className="pb-15 mt-5">

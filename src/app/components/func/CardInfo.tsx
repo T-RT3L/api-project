@@ -2,15 +2,15 @@ import React from 'react';
 import { useFlashcardContexts } from '../providers/FlashcardContext';
 import { VscDiffAdded } from 'react-icons/vsc';
 
-const CardInfo = (props: { term: String; pos: String; String; definition: Array<String> }) => {
-  const { flashcards, addWord, deleteWord } = useFlashcardContexts();
+const CardInfo = (props: { term: string; pos: String; definition: Array<String> }) => {
+  const { addWord } = useFlashcardContexts();
   return (
     <div className="w-full min-h-60 h-fit border-1 py-4 px-6 rounded-2xl transition-all duration-700 relative">
       <div className="absolute right-0 mx-4">
         <button
           className="flex-row flex gap-2 hover:cursor-pointer"
           onClick={() => {
-            addWord([props.term], props.definition);
+            addWord(props.term, props.definition);
           }}
         >
           <VscDiffAdded size={30} />
