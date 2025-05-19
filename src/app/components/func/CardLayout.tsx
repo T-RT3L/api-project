@@ -5,12 +5,12 @@ import CardInfo from './CardInfo';
 
 const CardLayout = () => {
   const apiUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
-  var [term, setTerm] = useState('Word');
-  var [pos, setPos] = useState('POS');
-  var [definition, setDefinition] = useState(['']);
+  const [term, setTerm] = useState('Word');
+  const [pos, setPos] = useState('POS');
+  const [definition, setDefinition] = useState(['']);
   const setAll = (data: any) => {
     setPos(data['meanings'][0]['partOfSpeech']);
-    var a = [];
+    let a = [];
     for (var b in data['meanings'][0]['definitions']) {
       a.push(data['meanings'][0]['definitions'][b]['definition']);
     }
@@ -34,7 +34,7 @@ const CardLayout = () => {
     <div className="mx-auto md:w-3/4 lg:w-1/2 w-full p-4">
       <div className="text-blue-500 flex-col flex gap-10 mt-10">
         <SearchBar util={searchWord} />
-        <CardInfo term={term as string} pos={pos as String} definition={definition as String[]} />
+        <CardInfo term={term as string} pos={pos as string} definition={definition as string[]} />
       </div>
     </div>
   );

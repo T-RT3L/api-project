@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = (props: { util: Function }) => {
+const SearchBar = (props: { util: (word: string) => void }) => {
   return (
     <section className="px-2 py-2 border-1 ease-in-out transition-all duration-200 border-opacity-10 border-sky-900 border-opacity-20 rounded-2xl">
       <input

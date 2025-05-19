@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from '../components/func/NavBar';
 import Game from '../components/func/game';
-import GameInfoProvider from '../components/providers/GameInfoProvider';
 
 const page = () => {
   return (

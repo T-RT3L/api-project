@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import PlayCard from './PlayCard';
 import GameInfo from './GameInfo';
 import GameInfoProvider from '../providers/GameInfoProvider';

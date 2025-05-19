@@ -1,12 +1,12 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { getDefinitions, getTerms, giveAll, storeFlashcards } from '../../utility/firestoreFunctions';
+import { getDefinitions, getTerms, storeFlashcards } from '../../utility/firestoreFunctions';
 
 interface MyProviderProps {
   children: ReactNode; // ReactNode is the correct type for children
 }
 interface FlashcardContextType {
   flashcards: string[]; // Adjust the type based on your data structure
-  addWord: (word: string, definition: any) => void;
+  addWord: (word: string, definition: string) => void;
   deleteWord: (index: number) => void;
   definitions: string[]; // Example: a map of words to definitions
 }
@@ -29,17 +29,17 @@ export const FlashcardsContextProvider = ({ children }: MyProviderProps) => {
     };
     fetchFromFirestore();
   }, []);
-  const addWord = (word: string, definition: any) => {
-    var newArr: string[] = [];
-    var toArray: string[] = flashcards as string[];
+  const addWord = (word: string, definition: string) => {
+    let newArr: string[] = [];
+    let toArray: string[] = flashcards as string[];
     if (!toArray.includes(word)) {
       toArray.unshift(word);
-      for (var i in toArray) {
+      for (let i in toArray) {
         newArr.push(toArray[i]);
       }
       SetCards(newArr);
     }
-    var newArr2 = definitions;
+    let newArr2 = definitions;
     if (!newArr2.includes(definition)) {
       newArr2.unshift(definition);
       SetDefinitions(newArr2);
@@ -47,8 +47,8 @@ export const FlashcardsContextProvider = ({ children }: MyProviderProps) => {
     storeFlashcards(newArr, newArr2);
   };
   const deleteWord = (index: number) => {
-    var newArr = flashcards.filter((ele, ind) => ind != index);
-    var newArr2 = definitions.filter((ele, ind) => ind != index);
+    let newArr = flashcards.filter((_ele, ind) => ind != index);
+    let newArr2 = definitions.filter((_ele, ind) => ind != index);
     SetCards(newArr);
     SetDefinitions(newArr2);
     storeFlashcards(newArr, newArr2);
