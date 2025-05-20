@@ -3,14 +3,27 @@ import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import CardInfo from './CardInfo';
 
+type Definition = {
+  definition: string;
+  example?: string;
+};
+
+type Meaning = {
+  partOfSpeech: string;
+  definitions: Definition[];
+};
+
+type DataType = {
+  meanings: Meaning[];
+};
 const CardLayout = () => {
   const apiUrl = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
   const [term, setTerm] = useState('Word');
   const [pos, setPos] = useState('POS');
   const [definition, setDefinition] = useState(['']);
-  const setAll = (data: { [key: string]: any }) => {
-    console.log(typeof data);
-    setPos(data['meanings'][0]['partOfSpeech']);
+  const setAll = (data: DataType) => {
+    console.log(typeof data, data['meanings']);
+    setPos(data.meanings[0].partOfSpeech);
     const a = [];
     for (const b in data['meanings'][0]['definitions']) {
       a.push(data['meanings'][0]['definitions'][b]['definition']);

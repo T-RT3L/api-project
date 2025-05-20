@@ -37,12 +37,12 @@ export async function storeFlashcards(term: Array<string>, def: Array<string>) {
     console.log('error: ' + error);
   }
 }
-export const getDefinitions = async (): Promise<string[]> => {
+export const getDefinitions = async (): Promise<string[][]> => {
   const querySnapshot = await getDoc(doc(db, 'definitions', 'data'));
   const data = Object.entries(querySnapshot.data()?.definition).map((value) => {
     return value[1];
   });
-  return data as string[];
+  return data as string[][];
 };
 export const getTerms = async (): Promise<string[]> => {
   const querySnapshot = await getDoc(doc(db, 'terms', 'data'));

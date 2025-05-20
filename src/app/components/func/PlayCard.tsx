@@ -9,14 +9,14 @@ import GameEnd from './GameEnd';
 const PlayCard = () => {
   const { cq, stats, updateCQ, updateStats, gameEnd, updateEndState } = useGameInfoContext()!;
   const [Clientterms, SetTerms] = useState(['term']);
-  const [Clientdefinitions, SetDefinitions] = useState(['']);
+  const [Clientdefinitions, SetDefinitions] = useState([['']]);
   const currentWord: string = Clientterms[cq];
-  const currentDef: string[] = Clientdefinitions[cq] as unknown as string[];
+  const currentDef: string[] = Clientdefinitions[cq];
   const [cardHideClass, SetCardHideClass] = useState('opacity-0 transition-discrete duration-700`');
   useEffect(() => {
     const fetchFromFirestore = async () => {
       const terms: string[] = (await getTerms()) as string[];
-      const def: string[] = (await getDefinitions()) as string[];
+      const def: string[][] = await getDefinitions();
       if (terms.length != 0 && terms != undefined) {
         SetTerms(terms);
         SetDefinitions(def);
@@ -39,7 +39,6 @@ const PlayCard = () => {
     updateStats(stats + 1);
     next();
   };
-  console.log(currentDef);
   return (
     <>
       {gameEnd ? (
@@ -76,7 +75,7 @@ const PlayCard = () => {
             <h1 className="text-2xl">Definitions: </h1>
             <div className=" md:text-md text-sm pb-20 ">
               <div className="bg-slate-800 rounded-2xl p-4 flex flex-col gap-4">
-                {currentDef == undefined ? (
+                {(currentDef as string[]).length == 0 ? (
                   <Loading />
                 ) : (
                   currentDef.map((val: string, i: number) => {
