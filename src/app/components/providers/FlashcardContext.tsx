@@ -6,7 +6,7 @@ interface MyProviderProps {
 }
 interface FlashcardContextType {
   flashcards: string[]; // Adjust the type based on your data structure
-  addWord: (word: string, definition: string) => void;
+  addWord: (word: string, definition: string[]) => void;
   deleteWord: (index: number) => void;
   definitions: string[]; // Example: a map of words to definitions
 }
@@ -29,26 +29,25 @@ export const FlashcardsContextProvider = ({ children }: MyProviderProps) => {
     };
     fetchFromFirestore();
   }, []);
-  const addWord = (word: string, definition: string) => {
-    let newArr: string[] = [];
-    let toArray: string[] = flashcards as string[];
+  const addWord = (word: string, definition: string[]) => {
+    const newArr: string[] = [];
+    const toArray: string[] = flashcards as string[];
     if (!toArray.includes(word)) {
       toArray.unshift(word);
-      for (let i in toArray) {
+      for (const i in toArray) {
         newArr.push(toArray[i]);
       }
       SetCards(newArr);
     }
-    let newArr2 = definitions;
-    if (!newArr2.includes(definition)) {
-      newArr2.unshift(definition);
-      SetDefinitions(newArr2);
-    }
+    console.log(definition, definitions);
+    const newArr2 = definitions;
+    newArr2.unshift(definition);
+    SetDefinitions(newArr2);
     storeFlashcards(newArr, newArr2);
   };
   const deleteWord = (index: number) => {
-    let newArr = flashcards.filter((_ele, ind) => ind != index);
-    let newArr2 = definitions.filter((_ele, ind) => ind != index);
+    const newArr = flashcards.filter((_ele, ind) => ind != index);
+    const newArr2 = definitions.filter((_ele, ind) => ind != index);
     SetCards(newArr);
     SetDefinitions(newArr2);
     storeFlashcards(newArr, newArr2);

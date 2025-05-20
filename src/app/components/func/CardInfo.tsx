@@ -2,7 +2,7 @@ import React from 'react';
 import { useFlashcardContexts } from '../providers/FlashcardContext';
 import { VscDiffAdded } from 'react-icons/vsc';
 
-const CardInfo = (props: { term: string; pos: string; definition: Array<string> }) => {
+const CardInfo = (props: { term: string; pos: string; definition: string[] }) => {
   const { addWord } = useFlashcardContexts();
   return (
     <div className="w-full min-h-60 h-fit border-1 py-4 px-6 rounded-2xl transition-all duration-700 relative">

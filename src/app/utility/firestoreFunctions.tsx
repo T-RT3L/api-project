@@ -8,8 +8,8 @@ const addEntry = (dict: Dictionary<string>, key: string, value: string): void =>
 };
 export async function storeFlashcards(term: Array<string>, def: Array<string>) {
   try {
-    let docRefTerms: Dictionary<string> = {};
-    let docRefDefinitions: Dictionary<string> = {};
+    const docRefTerms: Dictionary<string> = {};
+    const docRefDefinitions: Dictionary<string> = {};
     if (term.length == 0 && def.length == 0) {
       await setDoc(doc(db, 'definitions', 'data'), {
         definition: [],
@@ -18,7 +18,7 @@ export async function storeFlashcards(term: Array<string>, def: Array<string>) {
         term: {},
       });
     } else {
-      for (let i in term) {
+      for (const i in term) {
         const te = term[i];
         addEntry(docRefTerms, i, te);
       }
@@ -34,19 +34,19 @@ export async function storeFlashcards(term: Array<string>, def: Array<string>) {
       });
     }
   } catch (error) {
-    console.log('error');
+    console.log('error: ' + error);
   }
 }
 export const getDefinitions = async (): Promise<string[]> => {
   const querySnapshot = await getDoc(doc(db, 'definitions', 'data'));
-  const data = Object.entries(querySnapshot.data()?.definition).map((value, _index) => {
+  const data = Object.entries(querySnapshot.data()?.definition).map((value) => {
     return value[1];
   });
   return data as string[];
 };
 export const getTerms = async (): Promise<string[]> => {
   const querySnapshot = await getDoc(doc(db, 'terms', 'data'));
-  const data = Object.entries(querySnapshot.data()?.term).map((value, _index) => {
+  const data = Object.entries(querySnapshot.data()?.term).map((value) => {
     return value[1];
   });
   return data as string[];

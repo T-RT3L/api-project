@@ -8,10 +8,11 @@ const CardLayout = () => {
   const [term, setTerm] = useState('Word');
   const [pos, setPos] = useState('POS');
   const [definition, setDefinition] = useState(['']);
-  const setAll = (data: any) => {
+  const setAll = (data: { [key: string]: any }) => {
+    console.log(typeof data);
     setPos(data['meanings'][0]['partOfSpeech']);
-    let a = [];
-    for (var b in data['meanings'][0]['definitions']) {
+    const a = [];
+    for (const b in data['meanings'][0]['definitions']) {
       a.push(data['meanings'][0]['definitions'][b]['definition']);
     }
     setDefinition(a as string[]);
