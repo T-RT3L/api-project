@@ -6,7 +6,7 @@ const CardArray = () => {
   const { flashcards, deleteWord } = useFlashcardContexts();
   return (
     <div className="w-7/8 mx-auto h-fit px-4 py-4 border-x-1 rounded-t-2xl border-t-1 border-cyan-950 text-blue-500">
-      <div className="grid grid-cols-6">
+      <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2">
         {flashcards.map((value: string, index: number) => {
           return (
             <div
