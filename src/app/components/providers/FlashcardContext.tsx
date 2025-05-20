@@ -17,7 +17,7 @@ export const FlashcardsContextProvider = ({ children }: MyProviderProps) => {
   useEffect(() => {
     const fetchFromFirestore = async () => {
       const terms = (await getTerms()) as string[];
-      const def = (await getDefinitions()) as string[];
+      const def = (await getDefinitions()) as unknown as string[];
 
       if (terms.length != 0 && terms != undefined) {
         SetCards(terms);
