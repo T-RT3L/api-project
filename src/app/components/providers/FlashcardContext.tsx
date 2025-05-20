@@ -40,10 +40,10 @@ export const FlashcardsContextProvider = ({ children }: MyProviderProps) => {
       SetCards(newArr);
     }
     console.log(definition, definitions);
-    const newArr2 = definitions;
-    newArr2.unshift(definition);
-    SetDefinitions(newArr2);
-    storeFlashcards(newArr, newArr2);
+    const newArr2 = [definition, ...definitions];
+    console.log(newArr2);
+    SetDefinitions(newArr2 as string[]);
+    storeFlashcards(newArr, newArr2 as string[]);
   };
   const deleteWord = (index: number) => {
     const newArr = flashcards.filter((_ele, ind) => ind != index);
